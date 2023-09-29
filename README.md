@@ -1,14 +1,37 @@
-**Description:**<br>
-Anonymous FTP (File Transfer Protocol) is a method of accessing and retrieving files from a remote server without requiring a username or password. It's typically used to provide public access to certain files or directories, such as software updates, public data, or documents. Users can connect to the FTP server using the "anonymous" username and any email address as the password. While anonymous FTP can be a useful tool for sharing public information, it can also pose security risks if not properly configured and monitored.
+# FTP Login Destroyer
 
-**Impact:**<br>
-The impact of anonymous FTP largely depends on how it's set up and what kind of files are made available. If configured correctly, it can provide easy access to public resources. However, if not properly managed, it can lead to the exposure of sensitive information, unauthorized access to private files, or even server vulnerabilities that could be exploited by malicious actors. It's important to ensure that anonymous FTP is secured and limited to only the necessary files and directories to mitigate potential risks.
+**Overview:** FTP Login Destroyer is a versatile Python script designed to assess the security of FTP (File Transfer Protocol) servers by testing login credentials. It provides a flexible and user-friendly approach to identify potential vulnerabilities in FTP server configurations.
 
-**Pupose this tools**<br>
-- Try to login on a ftp server using anonymous user<b>
-- If the target success login, it wills stored in valid.txt file<br>
+## Features
 
-**Usage**<br>
-- python3 <tools.py><br>
-- Choose your decision want to exploit single target, or target on list<br>
-- The target supported just url, ip, domain<br>
+- **Multiple Target Sources:** The script allows users to choose between two methods for specifying target hosts:
+  - Input a list of target hosts from a file, with one host per line.
+  - Input a single target host interactively.
+  
+- **Port Accessibility Check:** Before attempting login, the script checks if port 21 (the default FTP port) is open on the target host. This initial check helps to avoid unnecessary login attempts.
+
+- **Anonymous Login:** The script attempts to log in to the FTP server using the default "anonymous" username and "anonymous" password. This allows it to test for common anonymous login misconfigurations.
+
+## Usage
+
+1. Clone the repository or download the script.
+2. Install the required dependencies by running `pip install -r requirements.txt`.
+3. Run the script and choose your target input method:
+   - Option 1: Input a list of target hosts from a file.
+   - Option 2: Input a single target host interactively.
+4. The script will initiate the testing process, providing visual feedback during the login attempts.
+5. Successfully logged-in hosts are recorded in the "vuln.txt" file.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributions
+
+Contributions to this project are welcome. Please feel free to submit issues, feature requests, or pull requests.
+
+## Disclaimer
+
+FTP Login Destroyer is a tool designed for ethical and responsible use, such as testing your own FTP servers or those with explicit permission for assessment. Unauthorized use of this script to access FTP servers without proper authorization is strictly prohibited and may violate legal and ethical guidelines.
+
+&copy; 2023 FTP Login Destroyer Joelindra. All rights reserved.
