@@ -1,3 +1,5 @@
 ftplib
 socket
 colorama
+pycryptodome
+Crypto
