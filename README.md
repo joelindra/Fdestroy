@@ -19,5 +19,5 @@ This Python tool assists in domain validation by performing FTP anonymous login 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/ftp-login-destroyer.git
-   cd ftp-login-destroyer
+   git clone https://github.com/joelindra/fd3str0y.git
+   cd fd3str0y
