@@ -1,4 +1,4 @@
-## **FTP Login Tester**
+## **FTP Login Destroyer**
 The FTP Login Tester is a Python-based tool designed for testing anonymous FTP login access on a list of target hosts or a single target. It checks if the FTP port (port 21) is open and attempts to log in using default anonymous credentials. This tool is particularly useful for scanning multiple hosts in parallel using multithreading for efficient testing.
 
 ## **Key features include:**
