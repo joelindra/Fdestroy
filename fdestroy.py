@@ -57,7 +57,7 @@ def test_ftp_login(hostname, username="anonymous", password="anonymous"):
 def print_header():
     print(Fore.CYAN + Style.BRIGHT)
     print("   ╔═════════════════════════════╗")
-    print("   ║       FTP Login Tester      ║")
+    print("   ║       FTP Login Destroyer   ║")
     print("   ║       Created by Joelindra  ║")
     print("   ╚═════════════════════════════╝")
     print(Style.RESET_ALL)
