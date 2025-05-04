@@ -61,6 +61,8 @@ The tool generates two types of output:
 1. A text file (`vuln.txt` by default) containing vulnerable hosts
 2. An HTML report with detailed information about each scanned target
 
+![image](https://github.com/user-attachments/assets/1b6770e8-6199-4529-a2c6-033477c6befb)
+
 ### Sample HTML Report
 The HTML report includes:
 - Scan statistics
